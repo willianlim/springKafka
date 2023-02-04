@@ -3,6 +3,7 @@ package com.will.producer.config;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
@@ -25,9 +26,8 @@ public class ProducerKafkaConfig {
         var configs = new HashMap<String, Object>();
 
         configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
-        configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, kafkaProperties.getBootstrapServers());
-        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, kafkaProperties.getBootstrapServers());
-
+        configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         return (new DefaultKafkaProducerFactory<>(configs));
     }
 
